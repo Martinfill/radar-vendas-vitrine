@@ -1,33 +1,104 @@
 <!doctype html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Radar Vendas | Ofertas</title>
+<meta name="description" content="Radar Vendas: descubra produtos e ofertas de parceiros comerciais.">
+<title>Radar Vendas | Descubra ofertas</title>
 <style>
-body{margin:0;background:#f5f7fb;color:#14233d;font-family:Arial,sans-serif}
-header{background:#102342;color:white;padding:48px 20px;text-align:center}
-main{max-width:950px;margin:35px auto;padding:20px;display:grid;gap:20px}
-article{background:white;padding:30px;border-radius:15px;box-shadow:0 4px 18px #0001}
-a{display:inline-block;background:#126b49;color:white;padding:14px 20px;border-radius:9px;text-decoration:none}
-footer{text-align:center;padding:30px;color:#555}
+:root{color-scheme:dark;font-family:Inter,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#081321;color:#eaf2fc;line-height:1.6}
+header{border-bottom:1px solid #26384b;padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:21px;font-weight:900;letter-spacing:-.7px}
+.logo span{color:#52e3b1}
+header small{color:#a4b5cb}
+.hero{text-align:center;padding:70px 20px 55px;background:radial-gradient(ellipse at top,#193954,#081321 70%)}
+.hero .label{color:#52e3b1;text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.1;margin:15px auto;max-width:850px}
+.hero p{color:#bacada;max-width:630px;margin:18px auto}
+main{max-width:1150px;margin:auto;padding:25px 20px 65px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:15px;margin:0 0 26px}
+.toolbar h2{margin:0;font-size:24px}
+input{background:#132439;color:#fff;border:1px solid #38516a;padding:14px 16px;border-radius:12px;min-width:240px;width:min(100%,360px);font-size:15px}
+input:focus{outline:2px solid #52e3b1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.product{border:1px solid #2a4055;background:#112236;border-radius:18px;overflow:hidden;transition:transform .2s,border-color .2s}
+.product:hover{transform:translateY(-3px);border-color:#52e3b1}
+.illustration{height:145px;background:linear-gradient(120deg,#153b51,#175b60,#19416b);display:grid;place-items:center;color:#93ffe0;font-size:78px}
+.inside{padding:25px}
+.eyebrow{font-size:12px;color:#52e3b1;font-weight:bold;text-transform:uppercase;letter-spacing:1px}
+h3{font-size:23px;margin:8px 0 10px}
+.product p{color:#bdcada;font-size:14px;min-height:65px}
+.tag{display:block;color:#a6b9ca;font-size:12px;margin:12px 0}
+.buy{display:block;margin-top:20px;padding:13px 15px;border-radius:10px;background:#4dd8a6;color:#07252c;font-weight:800;text-align:center;text-decoration:none}
+.buy:hover{background:#80f7ce}
+#empty{display:none;color:#afc2d8;padding:24px}
+footer{border-top:1px solid #26384b;text-align:center;padding:30px 20px;color:#a7b9ca;font-size:13px}
+footer p{max-width:900px;margin:8px auto}
+@media(max-width:600px){header{padding:15px 20px}.hero{padding:50px 20px}.toolbar{display:block}.toolbar input{margin-top:16px;width:100%}}
 </style>
 </head>
 <body>
-<header><h1>Radar Vendas</h1><p>Descubra ofertas dos nossos parceiros</p></header>
+<header><div class="logo">RADAR<span>VENDAS</span></div><small>Ofertas selecionadas</small></header>
+<section class="hero">
+ <div class="label">Oportunidades e parceiros</div>
+ <h1>Descubra produtos e ofertas num só lugar.</h1>
+ <p>Explore as propostas dos nossos parceiros e consulte sempre os detalhes e preços atualizados no site oficial do vendedor.</p>
+</section>
 <main>
-    <article>
-      <h2>Joseph&#x27;s Well</h2>
-      <p>Conheça os detalhes, condições e preço na página oficial.</p>
-      <a href="https://uswaterrevolution.com/#aff=MauroJose" target="_blank"
-         rel="noopener noreferrer sponsored">Conhecer produto</a>
-    </article>
+ <div class="toolbar">
+  <h2>Explorar produtos</h2>
+  <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+ </div>
+ <div class="grid" id="products">
 
-    <article>
-      <h2>Advanced Amino Formula</h2>
-      <p>Conheça os detalhes, condições e preço na página oficial.</p>
-      <a href="https://www.advancedbionutritionals.com/DS24/Advanced-Amino/Muscle-Mass-Loss/HD.htm#aff=MauroJose" target="_blank"
-         rel="noopener noreferrer sponsored">Conhecer produto</a>
-    </article></main>
-<footer>Publicidade: podemos receber comissões por compras feitas através dos links apresentados. Consulte as condições e preços no site do vendedor.</footer>
+      <article class="product" data-search="joseph&#x27;s well ofertas dos parceiros digistore24">
+        <div class="illustration" aria-hidden="true">✦</div>
+        <div class="inside">
+          <div class="eyebrow">Digistore24</div>
+          <h3>Joseph&#x27;s Well</h3>
+          <p>Conhece a oferta, as caracteristicas e as condicoes diretamente na pagina do vendedor.</p>
+          <span class='tag'>Comissao de afiliado: 75%</span>
+          <a class="buy" href="https://uswaterrevolution.com/#aff=MauroJose" target="_blank"
+             rel="noopener noreferrer sponsored">Conhecer produto ↗</a>
+        </div>
+      </article>
+    
+
+      <article class="product" data-search="advanced amino formula ofertas dos parceiros digistore24">
+        <div class="illustration" aria-hidden="true">✦</div>
+        <div class="inside">
+          <div class="eyebrow">Digistore24</div>
+          <h3>Advanced Amino Formula</h3>
+          <p>Conhece a oferta, as caracteristicas e as condicoes diretamente na pagina do vendedor.</p>
+          <span class='tag'>Comissao de afiliado: 60%</span>
+          <a class="buy" href="https://www.advancedbionutritionals.com/DS24/Advanced-Amino/Muscle-Mass-Loss/HD.htm#aff=MauroJose" target="_blank"
+             rel="noopener noreferrer sponsored">Conhecer produto ↗</a>
+        </div>
+      </article>
+    
+ </div>
+ <p id="empty">Não foram encontrados produtos com essa pesquisa.</p>
+</main>
+<footer>
+ <p><strong>Transparência:</strong> Esta página contém ligações de afiliado. Podemos receber uma comissão quando uma compra elegível é efetuada através delas.</p>
+ <p>Os preços, a disponibilidade e as condições são definidos pelos vendedores. Consulte os respetivos sites antes de comprar.</p>
+ <p>© Radar Vendas</p>
+</footer>
+<script>
+const search = document.getElementById('search');
+const cards = [...document.querySelectorAll('.product')];
+search.addEventListener('input', function(){
+ const q = this.value.trim().toLocaleLowerCase();
+ let visible = 0;
+ cards.forEach(card => {
+   const show = card.dataset.search.includes(q);
+   card.hidden = !show;
+   card.style.display = show ? '' : 'none';
+   if(show) visible++;
+ });
+ document.getElementById('empty').style.display = visible ? 'none' : 'block';
+});
+</script>
 </body></html>
