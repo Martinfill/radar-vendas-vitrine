@@ -38,6 +38,100 @@ footer{border-top:1px solid #26384b;text-align:center;padding:30px 20px;color:#a
 footer p{max-width:900px;margin:8px auto}
 @media(max-width:600px){header{padding:15px 20px}.hero{padding:50px 20px}.toolbar{display:block}.toolbar input{margin-top:16px;width:100%}}
 </style>
+
+<!-- RADAR_ANALYTICS_START -->
+<style>
+#radar-cookie-banner{
+ position:fixed;bottom:16px;left:16px;right:16px;
+ max-width:580px;margin:auto;padding:22px;
+ background:#13283c;color:white;border:1px solid #607b91;
+ border-radius:14px;z-index:9999;
+ box-shadow:0 10px 35px #0009;
+}
+#radar-cookie-banner button{
+ padding:11px 16px;margin:5px;border-radius:8px;
+ border:1px solid #8194a5;cursor:pointer;
+}
+#radar-cookie-yes{background:#54e0b0;color:#092c23}
+#radar-cookie-no{background:#34475a;color:#fff}
+</style>
+<script>
+(function(){
+ const ID="G-4Y7ECYG28C";
+ const KEY="radar_analytics_consent_v1";
+ let active=false;
+
+ function enable(){
+   if(active)return;
+   active=true;
+   window.dataLayer=window.dataLayer||[];
+   window.gtag=function(){dataLayer.push(arguments)};
+   gtag("js",new Date());
+   gtag("config",ID);
+   const tag=document.createElement("script");
+   tag.async=true;
+   tag.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+   document.head.appendChild(tag);
+ }
+
+ function init(){
+   let choice="";
+   try{choice=localStorage.getItem(KEY)||""}catch(e){}
+   const banner=document.createElement("aside");
+   banner.id="radar-cookie-banner";
+   banner.setAttribute("aria-label","Preferencias de privacidade");
+   banner.innerHTML=
+    "<strong>Privacidade</strong>"+
+    "<p>Usamos Google Analytics para medir visitas e cliques "+
+    "apenas com o teu consentimento. Podes recusar e continuar "+
+    "a navegar normalmente.</p>"+
+    '<button id="radar-cookie-yes">Aceitar analise</button>'+
+    '<button id="radar-cookie-no">Recusar</button>';
+   document.body.appendChild(banner);
+
+   function choose(value){
+     try{localStorage.setItem(KEY,value)}catch(e){}
+     banner.hidden=true;
+     if(value==="yes")enable();
+     else window["ga-disable-"+ID]=true;
+   }
+
+   document.getElementById("radar-cookie-yes").onclick=
+     ()=>choose("yes");
+   document.getElementById("radar-cookie-no").onclick=
+     ()=>choose("no");
+
+   if(choice==="yes"){banner.hidden=true;enable()}
+   if(choice==="no"){banner.hidden=true}
+
+   const footer=document.querySelector("footer");
+   if(footer){
+     const button=document.createElement("button");
+     button.type="button";
+     button.textContent="Preferencias de privacidade";
+     button.style.marginTop="12px";
+     button.onclick=()=>{banner.hidden=false};
+     footer.appendChild(button);
+   }
+
+   document.querySelectorAll('a[rel~="sponsored"]').forEach(link=>{
+     link.addEventListener("click",()=>{
+       if(!active||typeof window.gtag!=="function")return;
+       gtag("event","affiliate_click",{
+         product_name:link.closest("article")
+           ?.querySelector("h3")?.textContent?.trim()||"Produto",
+         transport_type:"beacon"
+       });
+     });
+   });
+ }
+
+ if(document.readyState==="loading")
+   document.addEventListener("DOMContentLoaded",init);
+ else init();
+})();
+</script>
+<!-- RADAR_ANALYTICS_END -->
 </head>
 <body>
 <header><div class="logo">RADAR<span>VENDAS</span></div><small>Ofertas selecionadas</small></header>
