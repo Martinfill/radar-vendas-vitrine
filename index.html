@@ -145,7 +145,98 @@ footer p{max-width:900px;margin:8px auto}
   <h2>Explorar produtos</h2>
   <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
  </div>
- <div class="grid" id="products">
+ 
+<!-- RADAR_PAISES_START -->
+<section id="radar-countries" style="max-width:1150px;margin:15px auto;padding:20px;background:#10283c;border:1px solid #34556b;border-radius:15px">
+  <h2>Ofertas por pais de destino</h2>
+  <p>Seleciona o pais onde pretendes receber o produto.
+  A disponibilidade deve ser confirmada no checkout do vendedor.</p>
+  <label for="radar-country">Pais de destino:</label>
+  <select id="radar-country" style="display:block;width:100%;max-width:370px;padding:13px;margin-top:8px;border-radius:9px;background:#203a50;color:white">
+    <option value="">Selecionar pais</option>
+    <option value="PT">Portugal</option>
+    <option value="US">Estados Unidos</option>
+    <option value="CA">Canada</option>
+    <option value="GB">Reino Unido</option>
+    <option value="AU">Australia</option>
+    <option value="NZ">Nova Zelandia</option>
+    <option value="IE">Irlanda</option>
+    <option value="OTHER">Outro pais</option>
+  </select>
+  <p id="radar-country-info" role="status">
+    Seleciona um pais para consultar a elegibilidade conhecida.
+  </p>
+</section>
+<script>
+(function(){
+ function initCountries(){
+   const select=document.getElementById("radar-country");
+   const info=document.getElementById("radar-country-info");
+   if(!select||!info)return;
+
+   const knownAmino=new Set(["US","CA","GB","AU","NZ","IE"]);
+
+   function update(){
+     const country=select.value;
+     let eligible=0;
+
+     document.querySelectorAll("#products article").forEach(card=>{
+       const title=(card.querySelector("h3")?.textContent||"").toLowerCase();
+       const link=card.querySelector("a.buy");
+       if(!link)return;
+
+       let status="Elegibilidade por confirmar";
+       let allowed=false;
+
+       if(title.includes("joseph")){
+         status=country==="PT"
+           ?"Indisponivel para entrega em Portugal"
+           :"Pais de entrega ainda nao confirmado";
+       }else if(title.includes("advanced amino")){
+         if(knownAmino.has(country)){
+           status="Mercado indicado pelo programa; confirmar entrega e regras";
+           allowed=true;
+         }else if(country==="PT"){
+           status="Portugal nao consta dos mercados indicados";
+         }
+       }
+
+       if(!country) status="Seleciona primeiro o pais de destino";
+
+       let label=card.querySelector(".radar-country-label");
+       if(!label){
+         label=document.createElement("p");
+         label.className="radar-country-label";
+         label.style.color="#aeead9";
+         label.style.fontSize="13px";
+         link.parentNode.insertBefore(label,link);
+       }
+       label.textContent=status;
+
+       link.style.display=allowed?"block":"none";
+       card.dataset.marketEligible=allowed?"yes":"no";
+       if(allowed)eligible++;
+     });
+
+     info.textContent=!country
+       ?"Seleciona um pais para veres ofertas com mercado indicado."
+       :eligible
+         ?eligible+" oferta(s) com mercado indicado. Confirma sempre a entrega antes de comprar."
+         :"Ainda nao temos ofertas confirmadas para este pais. Estamos a procurar fornecedores.";
+   }
+
+   select.addEventListener("change",update);
+   update();
+ }
+
+ if(document.readyState==="loading")
+   document.addEventListener("DOMContentLoaded",initCountries);
+ else initCountries();
+})();
+</script>
+<!-- RADAR_PAISES_END -->
+
+<div class="grid" id="products">
 
       <article class="product" data-search="joseph&#x27;s well ofertas dos parceiros digistore24">
         <div class="illustration" aria-hidden="true">✦</div>
